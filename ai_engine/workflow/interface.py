@@ -16,12 +16,12 @@ def detect_emotion(emotion, debug=False):
     elif(emotion=="surprise"):
         emoji_path = emojis.surprise
         pic_name = get_emotion(emoji_path, debug, 100)
-    elif(emotion=="angry"):
-        #do something
-        emotion = "angry"
-    elif(emotion=="disgust"):
-        #do something
-        emotion="disgust"
+    elif (emotion == "sad"):
+        emoji_path = emojis.sad
+        pic_name = get_emotion(emoji_path, debug, 100)
+    elif (emotion == "fear"):
+        emoji_path = emojis.fear
+        pic_name = get_emotion(emoji_path, debug, 100)
     else:
         emotion="other"
         emoji_path = emojis.other
@@ -36,9 +36,9 @@ def process_speech(voice_path):
     emotion_result.append("Other")
 
     #Add group 2 method here to get a return result with proper array
-    emotion_result.append("Other")
+    emotion_result.append(group_2_emotion_validation(voice_path))
 
     #group 3 result
-    emotion_result.append(emotion_validation(voice_path))
-    #emotion_result.append("happy")
+    emotion_result.append(group_3_emotion_validation(voice_path))
+    
     return emotion_result
