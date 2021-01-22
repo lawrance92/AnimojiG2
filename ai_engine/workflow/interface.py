@@ -1,5 +1,5 @@
 from core.emotion.emotion3 import emojis, get_emotion, emotion_validation
-from core.emotion.emotion2 import *
+from core.emotion.emotion2 import get_mfcc, dtw, distance, match
 from core.emotion.emotion1 import *
 import numpy
 import cv2
@@ -16,14 +16,28 @@ def detect_emotion(emotion, debug=False):
     elif(emotion=="surprise"):
         emoji_path = emojis.surprise
         pic_name = get_emotion(emoji_path, debug, 100)
+    elif(emotion=="angry"):
+        emotion = "angry"
+    elif(emotion=="disgust"):
+        emotion = "disgust"
     elif (emotion == "sad"):
-        emoji_path = emojis.sad
-        pic_name = get_emotion(emoji_path, debug, 100)
+        emotion = "sad"
     elif (emotion == "fear"):
-        emoji_path = emojis.fear
-        pic_name = get_emotion(emoji_path, debug, 100)
+        emotion = "fear"
+    elif (emotion == "weak sad"):
+        emotion = "weak sad"
+    elif (emotion == "mid sad"):
+        emotion = "mid sad"
+    elif (emotion == "very sad"):
+        emotion = "very sad"
+    elif (emotion == "weak fear"):
+        emotion = "weak fear"
+    elif (emotion == "mid fear"):
+        emotion = "mid fear"
+    elif (emotion == "very fear"):
+        emotion = "very fear"
     else:
-        emotion="other"
+        emotion = "other"
         emoji_path = emojis.other
         pic_name = get_emotion(emoji_path, debug, 100)
         
@@ -36,9 +50,11 @@ def process_speech(voice_path):
     emotion_result.append("Other")
 
     #Add group 2 method here to get a return result with proper array
-    emotion_result.append(group_2_emotion_validation(voice_path))
+    # emotion_result.append("Other")
+    emotion_result.append(match(voice_path))
 
     #group 3 result
-    emotion_result.append(group_3_emotion_validation(voice_path))
-    
+    emotion_result.append(emotion_validation(voice_path))
+    #emotion_result.append("happy")
     return emotion_result
+
